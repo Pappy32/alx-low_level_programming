@@ -1,23 +1,37 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
+
+#define SUM 2772
 /**
- * main - entry point generates a random password
+ * main - Create a program that generates random valid
+ * passwords for the program 101-crackme
  *
- * Return: the generated password
+ * man srand, rand, time
+ * Return: 0
  */
 int main(void)
 {
-char c;
-int x;
+	int sum = 0, n = 0, i = 0;
+	char str[100];
 
-srand(time(0));
-while (x <= 2645)
-{
-c = rand() % 128;
-x += c;
-putchar(c);
-}
-putchar(2772 - x);
-return (0);
+	srand(time(NULL));
+	while (sum < SUM)
+	{
+		if (SUM - sum < 48)
+			sum -= str[--i];
+		else if (SUM - sum <= 126)
+			n = SUM - sum;
+		else
+			n = rand() % (126 - 48) + 48;
+		if (n)
+		{
+			str[i++] = n;
+			sum += n;
+		}
+		n = 0;
+	}
+	str[i] = '\0';
+	printf("%s", str);
+	return (0);
 }
